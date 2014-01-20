@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><body>
+
+
+
+
+
+<video width="320" height="240" controls>
+  <source src="http://192.168.1.113:8160/" type="video/h264">
+</video>
+
+
+<OBJECT classid="clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921"
+ codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"
+ width="800" height="600" id="vlc" events="True">
+ <param name="Src" value="rtsp://192.168.1.113:8160/go.mpg" />
+ <param name="ShowDisplay" value="True" />
+ <param name="AutoLoop" value="False" />
+ <param name="AutoPlay" value="True" />
+ <embed id="vlcEmb" type="application/x-google-vlc-plugin" version="VideoLAN.VLCPlugin.2" autoplay="yes" loop="no" width="640" height="480"
+ target="rtsp://192.168.1.113:8160/go.mpg" ></embed>
+</OBJECT>
+</html></body>
