@@ -43,31 +43,53 @@ stdscr = curses.initscr()
 
 curses.noecho()
 curses.cbreak();
+previousMotorState = "STOP"
+motorState = "STOP"
 
 while True:
+    stdscr.nodelay(0)
     char = stdscr.getch()
-    if char == 113: break  # q
+    
+    if char == -1 :
+        stdscr.addstr(1,1,"NO KEY")
+        robot.stopWheels
+        motoState = "STOP"
+        
+    if char == 113: 
+        break  # q
     elif char == ord("d"): 
         stdscr.addstr(1,1,"RIGHT")
-        robot.turnRight()
+        motorState = "RIGHT"
+        if previousMotorState != motorState:    
+            previousMotorState = motorState
+            robot.turnRight()
         time.sleep(.1)
     elif char == ord("a"): 
         stdscr.addstr(1,1,"LEFT")
-        robot.turnLeft()
+        motorState = "LEFT"
+        if previousMotorState != motorState:    
+            previousMotorState = motorState
+            robot.turnLeft()
         time.sleep(.1)
     elif char == ord("w"): 
         stdscr.addstr(1,1,"UP")
-        robot.moveForward()
+        motorState = "UP"
+        if previousMotorState != motorState:    
+            previousMotorState = motorState
+            robot.moveForward()
         time.sleep(.1)
     elif char == ord("s"): 
         stdscr.addstr(1,1,"DOWN")
+        motorState = "DOWN"
         robot.stopWheels()
     else: 
-        print("NOTHING")
         robot.stopWheels()
-    print (" ")
-    time.sleep(0.1)
-
+        
+    if previousMotorState != motorState:
+        
+        previousMotorState = motorState
+      
+    
 curses.nocbreak(); stdscr.keypad(0); curses.echo()
 curses.endwin()
 pfio.deinit()
